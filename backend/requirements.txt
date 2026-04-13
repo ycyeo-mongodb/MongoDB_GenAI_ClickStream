@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+motor
+pymongo
+pydantic
+pydantic-settings
+openai
+python-dotenv
+websockets
+httpx
+numpy
