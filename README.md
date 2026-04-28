@@ -48,7 +48,8 @@ User browses store → Clickstream events captured → Stored in MongoDB
 │   │   │   └── change_stream.py    # MongoDB Change Stream listener
 │   │   └── websocket/
 │   │       └── manager.py          # WebSocket connection manager
-│   ├── seed_analytics_data.py      # Seed marketing offers
+│   ├── seed_analytics_data.py      # Seed user profiles + behavioral events
+│   ├── seed_offers.py              # Seed marketing offers (run before embeddings)
 │   ├── generate_embeddings.py      # Generate offer embeddings
 │   └── requirements.txt
 ├── frontend/
@@ -108,11 +109,12 @@ VOYAGE_API_KEY=<your-voyage-api-key>
 LLM_ENDPOINT=<your-api-gateway-url>
 ```
 
-Seed the database and generate embeddings:
+Seed the database and generate embeddings (run in this order):
 
 ```bash
-python seed_analytics_data.py
-python generate_embeddings.py
+python seed_analytics_data.py    # user profiles + behavioral events
+python seed_offers.py            # marketing offers (required for $vectorSearch)
+python generate_embeddings.py    # vector embeddings for the seeded offers
 ```
 
 Start the backend:
